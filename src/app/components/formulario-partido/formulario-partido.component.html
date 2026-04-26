@@ -1,0 +1,14 @@
+<div class="glass-card-form">
+  <h3>Publicar Nuevo <span>Desafío</span></h3>
+  <form (ngSubmit)="guardar()" #partidoForm="ngForm">
+    <input type="text" name="titulo" [(ngModel)]="nuevoPartido.titulo" placeholder="Título" required>
+    <input type="text" name="lugar" [(ngModel)]="nuevoPartido.lugar" placeholder="Lugar" required>
+    <div class="row">
+      <input type="datetime-local" name="fecha" [(ngModel)]="nuevoPartido.fechaHora" required>
+      <input type="number" name="cupos" [(ngModel)]="nuevoPartido.cuposDisponibles"  required>
+    </div>
+    <textarea name="desc" [(ngModel)]="nuevoPartido.descripcion" placeholder="Notas..."></textarea>
+    <button type="submit" class="btn-submit" [disabled]="!partidoForm.valid">Publicar Desafío</button>
+    <button type="button" class="btn-cancel" (click)="partidoCreado.emit()">Cancelar y volver</button>
+  </form>
+</div>

@@ -1,0 +1,53 @@
+<div class="main-layout">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav class="glass-nav">
+    <div class="logo">Micro<span>Street</span></div>
+    <div class="nav-actions">
+      <button class="btn-create" (click)="toggleFormulario()">
+        {{ mostrarFormulario ? 'Cerrar' : '+ Crear Partido' }}
+      </button>
+    </div>
+  </nav>
+
+  @if (mostrarFormulario) {
+    <div class="form-overlay">
+      <app-formulario-partido (partidoCreado)="cargarPartidos()"></app-formulario-partido>
+    </div>
+  }
+
+  <main class="content-wrapper">
+    <header class="hero-section">
+      <h1>Próximos <span>Desafíos</span></h1>
+      <p>Canchas disponibles en Marinilla</p>
+    </header>
+
+    <div class="grid-container">
+      
+      <div class="glass-card" *ngFor="let p of listaPartidos">
+        <div class="card-header">
+          <span class="badge">Disponible</span>
+          <span class="cupos"><strong>{{ p.cuposDisponibles }}</strong> Cupos</span>
+        </div>
+
+        <div class="card-body">
+          <h3>{{ p.titulo }}</h3>
+          <p class="lugar">📍 {{ p.lugar }}</p>
+          
+          <div class="time-box">
+            {{ p.fechaHora | date:'EEEE, d MMMM' }}<br>
+            <small>{{ p.fechaHora | date:'hh:mm a' }}</small>
+          </div>
+
+          <p class="descripcion">"{{ p.descripcion }}"</p>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn-join">Aceptar Desafío</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
