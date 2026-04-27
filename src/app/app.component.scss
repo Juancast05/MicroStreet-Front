@@ -22,11 +22,29 @@
   .logo {
     font-size: 1.8rem;
     font-weight: 900;
+    cursor: pointer;
     span { color: #00f2ff; }
+  }
+
+  // 1. SEPARACIÓN DE BOTONES
+  .nav-actions {
+    display: flex;
+    gap: 15px; // Espacio entre "Crear Partido" y "Registrarse"
+    
+    .btn-auth {
+      background: #00f2ff;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover { box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
+    }
   }
 }
 
-// Botón superior
 .btn-create {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -50,17 +68,16 @@
   p { opacity: 0.5; font-size: 1.1rem; }
 }
 
-// CUADRÍCULA DE TARJETAS (Grid)
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 30px;
-  width: 100%;
+  width: 90%;
   max-width: 1100px;
   padding-bottom: 50px;
 }
 
-// LA TARJETA VERTICAL (ESTILO VIDRIO)
+// LA TARJETA
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(15px);
@@ -69,6 +86,7 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
+  position: relative; // 2. NECESARIO PARA POSICIONAR LOS CUPOS
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:hover {
@@ -78,18 +96,25 @@
     box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
 
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    .badge { background: #00f2ff; color: black; padding: 4px 12px; border-radius: 10px; font-weight: bold; font-size: 0.8rem; }
-    .cupos { opacity: 0.7; }
+  // 3. CUPOS ARRIBA A LA DERECHA
+  .cupos-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 242, 255, 0.1);
+    color: #00f2ff;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid rgba(0, 242, 255, 0.3);
   }
 
   .card-body {
     flex-grow: 1;
-    h3 { font-size: 1.6rem; margin-bottom: 8px; }
-    .lugar { color: #00f2ff; font-weight: 500; margin-bottom: 15px; }
+    margin-top: 10px;
+    h3 { font-size: 1.6rem; margin-bottom: 8px; margin-right: 60px; } // Espacio para que el texto no pise los cupos
+    .lugar { color: #00f2ff; font-weight: 500; margin-bottom: 15px; display: block; }
     
     .time-box {
       background: rgba(255, 255, 255, 0.05);
@@ -101,9 +126,17 @@
       small { opacity: 0.6; }
     }
 
-    .descripcion { font-size: 0.9rem; opacity: 0.5; font-style: italic; }
+    // 4. ESTILO DE DESCRIPCIÓN
+    .descripcion { 
+      font-size: 0.9rem; 
+      color: rgba(255, 255, 255, 0.6); 
+      line-height: 1.4;
+      margin-bottom: 10px;
+      display: block;
+    }
   }
 
+  // 5. BOTÓN DINÁMICO (NORMAL Y ROJO)
   .btn-join {
     width: 100%;
     margin-top: 20px;
@@ -116,30 +149,20 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.3s;
-    &:hover { box-shadow: 0 0 20px rgba(0, 242, 255, 0.6); }
+
+    &:hover:not(:disabled) { 
+      box-shadow: 0 0 20px rgba(0, 242, 255, 0.6); 
+    }
+
+    // Clase para cuando no hay cupos
+    &.sin-cupos {
+      background: #ff4d4d !important; // Rojo
+      color: white;
+      cursor: not-allowed;
+      opacity: 1; // Para que no se vea transparente al estar disabled
+      &:hover { box-shadow: 0 0 15px rgba(255, 77, 77, 0.4); }
+    }
   }
 }
 
-// Overlay del Formulario
-.form-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-// Blobs de fondo
-.blob {
-  position: fixed;
-  width: 300px; height: 300px;
-  background: #00f2ff;
-  filter: blur(150px);
-  opacity: 0.1;
-  z-index: -1;
-}
-.blob-1 { top: 10%; left: 10%; }
-.blob-2 { bottom: 10%; right: 10%; background: #0072ff; }
+// ... (El resto de tus estilos de overlay y blobs están perfectos)

@@ -1,25 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Partido } from '../models/partido.model';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class PartidoService {
-
+  private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/api/partidos';
-
-  constructor(private http: HttpClient) { }
 
   getPartidos(): Observable<Partido[]> {
     return this.http.get<Partido[]>(this.apiUrl);
   }
 
-  // Asegúrate de que este método esté DENTRO de las llaves de la clase
   crearPartido(partido: Partido): Observable<Partido> {
     return this.http.post<Partido>(this.apiUrl, partido);
   }
 
+  // Ajustado a PUT para que coincida con tu @PutMapping del Back
+  unirseAPartido(id: number): Observable<Partido> {
+    return this.http.put<Partido>(`${this.apiUrl}/${id}/unirse`, {});
+  }
 }

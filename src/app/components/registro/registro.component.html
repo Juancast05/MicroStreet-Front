@@ -1,0 +1,38 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    @if (!codigoEnviado) {
+      <h2>Crea tu <span>Cuenta</span></h2>
+      <p>Regístrate para unirte a los desafíos en Marinilla</p>
+      
+      <form (submit)="registrar()">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Nombre completo" required>
+        </div>
+        <div class="input-group">
+          <input type="text" [(ngModel)]="usuario.documento" name="documento" placeholder="Cédula / Documento" required>
+        </div>
+        <div class="input-group">
+          <input type="email" [(ngModel)]="usuario.email" name="email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="input-group">
+          <input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Contraseña segura" required>
+        </div>
+        
+        <button type="submit" class="btn-neon">Enviar Código al Correo</button>
+      </form>
+    } 
+    
+    @else {
+      <h2>Verifica tu <span>Email</span></h2>
+      <p>Hemos enviado un código de 6 dígitos a:<br><strong>{{ usuario.email }}</strong></p>
+      
+      <div class="verification-box">
+        <input type="text" [(ngModel)]="codigoIngresado" maxlength="6" placeholder="000000" class="input-code">
+        <button (click)="verificarCodigo()" class="btn-neon">Validar Cuenta</button>
+        <button (click)="codigoEnviado = false" class="btn-back">Corregir correo</button>
+      </div>
+    }
+
+  </div>
+</div>
