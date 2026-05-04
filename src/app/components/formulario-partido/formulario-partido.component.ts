@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // Importación necesaria
 import { PartidoService } from '../../services/partido.service';
 import { Partido } from '../../models/partido.model';
 
@@ -12,26 +13,37 @@ import { Partido } from '../../models/partido.model';
   styleUrls: ['./formulario-partido.component.scss']
 })
 export class FormularioPartidoComponent {
-  // El Output sirve para avisarle al padre (app.component) que refresque la lista
-  @Output() partidoCreado = new EventEmitter<void>();
-
+  
   nuevoPartido: Partido = {
-    titulo: '', lugar: '', fechaHora: '', cuposDisponibles: 10, descripcion: ''
+    titulo: '', 
+    lugar: '', 
+    fechaHora: '', 
+    cuposDisponibles: 10, 
+    descripcion: ''
   };
 
-  constructor(private partidoService: PartidoService) {}
+  // Inyectamos el Router para poder salir de la vista al terminar
+  constructor(
+    private partidoService: PartidoService,
+    private router: Router
+  ) {}
 
   guardar() {
     this.partidoService.crearPartido(this.nuevoPartido).subscribe({
       next: () => {
-        this.partidoCreado.emit(); // Avisamos que terminamos
-        this.limpiarForm();
+        alert('¡Desafío creado con éxito!');
+        // En lugar de emitir un evento, navegamos al inicio
+        this.router.navigate(['/']); 
       },
-      error: (err) => console.error('Error:', err)
+      error: (err) => {
+        console.error('Error al crear el partido:', err);
+        alert('Hubo un error al guardar el desafío.');
+      }
     });
   }
 
-  private limpiarForm() {
-    this.nuevoPartido = { titulo: '', lugar: '', fechaHora: '', cuposDisponibles: 10, descripcion: '' };
+  cancelar() {
+    // Función para el botón de "Cancelar" o "Volver"
+    this.router.navigate(['/']);
   }
 }

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, Router } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormularioPartidoComponent } from './components/formulario-partido/formulario-partido.component';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,7 +10,6 @@ import { FormularioPartidoComponent } from './components/formulario-partido/form
     RouterLink, 
     CommonModule, 
     HttpClientModule, // <-- Importante para peticiones HTTP
-    FormularioPartidoComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -24,14 +21,24 @@ export class AppComponent implements OnInit {
   // Inyectamos el Router para las rutas y el HttpClient para el backend
   constructor(private router: Router, private http: HttpClient) {} 
 
+  // En app.component.ts
+esUsuarioLogueado(): boolean {
+  return localStorage.getItem('usuarioLogueado') !== null;
+}
+
+cerrarSesion() {
+  localStorage.removeItem('usuarioLogueado');
+  this.router.navigate(['/login']);
+}
+
   ngOnInit() {
     this.cargarPartidos(); // Carga la lista apenas se abre la página
   }
 
   // Función para saber si estamos en la página de registro
-  esRutaRegistro(): boolean {
-    return this.router.url === '/registro';
-  }
+  esRutaPrincipal(): boolean {
+  return this.router.url === '/';
+}
 
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;

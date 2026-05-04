@@ -9,6 +9,6 @@
     </div>
     <textarea name="desc" [(ngModel)]="nuevoPartido.descripcion" placeholder="Notas..."></textarea>
     <button type="submit" class="btn-submit" [disabled]="!partidoForm.valid">Publicar Desafío</button>
-    <button type="button" class="btn-cancel" (click)="partidoCreado.emit()">Cancelar y volver</button>
+    <button type="button" (click)="cancelar()" class="btn-cancel">Volver</button>
   </form>
 </div>

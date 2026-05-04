@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
-import { RegistroComponent } from './components/registro/registro.component'; // Verifica que la ruta sea correcta
-// Importa también el componente donde tienes la galería (ej: GaleriaComponent)
+import { RegistroComponent } from './components/registro/registro.component';
+import { FormularioPartidoComponent } from './components/formulario-partido/formulario-partido.component';
 
 export const routes: Routes = [
-  { 
-    path: 'registro', 
-    component: RegistroComponent 
-  },
-  { 
-    path: '**', 
-    redirectTo: '' 
-  } // Redirige cualquier ruta rara al inicio
+  { path: 'registro', component: RegistroComponent },
+  { path: 'crear-partido', component: FormularioPartidoComponent },
+  // Dejamos el inicio para la galería, pero luego la protegeremos
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: '**', redirectTo: 'login' }
 ];

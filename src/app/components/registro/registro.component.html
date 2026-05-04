@@ -5,7 +5,8 @@
       <h2>Crea tu <span>Cuenta</span></h2>
       <p>Regístrate para unirte a los desafíos en Marinilla</p>
       
-      <form (submit)="registrar()">
+      <!-- Usamos (ngSubmit) y prevenimos el refresco de página -->
+      <form (ngSubmit)="registrar()">
         <div class="input-group">
           <input type="text" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Nombre completo" required>
         </div>
@@ -18,9 +19,14 @@
         <div class="input-group">
           <input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Contraseña segura" required>
         </div>
-        
-        <button type="submit" class="btn-neon">Enviar Código al Correo</button>
+  
+        <!-- BOTÓN CON BLOQUEO DINÁMICO -->
+        <button type="submit" class="btn-neon" [disabled]="enviandoPeticion">
+          <span *ngIf="!enviandoPeticion">Enviar Código al Correo</span>
+          <span *ngIf="enviandoPeticion">Enviando...</span>
+        </button>
       </form>
+
     } 
     
     @else {
@@ -29,8 +35,16 @@
       
       <div class="verification-box">
         <input type="text" [(ngModel)]="codigoIngresado" maxlength="6" placeholder="000000" class="input-code">
-        <button (click)="verificarCodigo()" class="btn-neon">Validar Cuenta</button>
-        <button (click)="codigoEnviado = false" class="btn-back">Corregir correo</button>
+        
+        <!-- BOTÓN DE VALIDACIÓN CON BLOQUEO -->
+        <button (click)="verificarCodigo()" class="btn-neon" [disabled]="enviandoPeticion">
+          <span *ngIf="!enviandoPeticion">Validar Cuenta</span>
+          <span *ngIf="enviandoPeticion">Validando...</span>
+        </button>
+        
+        <button (click)="codigoEnviado = false" class="btn-back" [disabled]="enviandoPeticion">
+          Corregir correo
+        </button>
       </div>
     }
 

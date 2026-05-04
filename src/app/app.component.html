@@ -1,27 +1,29 @@
 <div class="main-layout">
+  <!-- Fondo visual -->
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 
   <nav class="glass-nav">
     <div class="logo" routerLink="/">Micro<span>Street</span></div>
+    
     <div class="nav-actions">
-      <button class="btn-create" (click)="toggleFormulario()" *ngIf="!esRutaRegistro()">
-        {{ mostrarFormulario ? 'Cerrar' : ' Crear Partido' }}
+      <!-- Botones que solo se ven en la Galería Principal -->
+      <ng-container *ngIf="esRutaPrincipal()">
+        <button class="btn-create" routerLink="/crear-partido">Crear Partido</button>
+        <button class="btn-auth" routerLink="/registro">Registrarse</button>
+      </ng-container>
+
+      <!-- Botón para volver si estás en Registro o en Crear Partido -->
+      <button class="btn-create" routerLink="/" *ngIf="!esRutaPrincipal()">
+        Volver al Inicio
       </button>
-      <button class="btn-auth" routerLink="/registro" *ngIf="!esRutaRegistro()">Registrarse</button>
-      <button class="btn-create" routerLink="/" *ngIf="esRutaRegistro()">Volver al Inicio</button>
     </div>
   </nav>
 
-  @if (mostrarFormulario) {
-    <div class="form-overlay">
-      <app-formulario-partido (partidoCreado)="cargarPartidos()"></app-formulario-partido>
-    </div>
-  }
-
   <main class="content-wrapper">
     
-    <div *ngIf="!esRutaRegistro()">
+    <!-- GALERÍA: Solo se renderiza si estamos en la raíz (/) -->
+    <div *ngIf="esRutaPrincipal()">
       <header class="hero-section">
         <h1>Próximos <span>Desafíos</span></h1>
         <p>Canchas disponibles en Marinilla</p>
@@ -30,17 +32,24 @@
       <div class="grid-container">
         <div class="glass-card" *ngFor="let p of listaPartidos">
           <div class="cupos-badge">{{ p.cuposDisponibles }} cupos</div>
+          
           <div class="card-body">
             <h3>{{ p.titulo }}</h3>
             <span class="descripcion">{{ p.descripcion }}</span>
             <p class="lugar">📍 {{ p.lugar }}</p>
+            
             <div class="time-box">
               {{ p.fechaHora | date:'EEEE, d MMMM' }}<br>
               <small>{{ p.fechaHora | date:'hh:mm a' }}</small>
             </div>
           </div>
+
           <div class="card-footer">
-            <button class="btn-join" [class.sin-cupos]="p.cuposDisponibles === 0" [disabled]="p.cuposDisponibles === 0" (click)="unirse(p.id)">
+            <button 
+              class="btn-join" 
+              [class.sin-cupos]="p.cuposDisponibles === 0" 
+              [disabled]="p.cuposDisponibles === 0" 
+              (click)="unirse(p.id)">
               {{ p.cuposDisponibles > 0 ? 'Aceptar Desafío' : 'Sin Cupos' }}
             </button>
           </div>
@@ -48,6 +57,7 @@
       </div>
     </div>
 
+    <!-- AQUÍ se cargarán RegistroComponent o FormularioPartidoComponent -->
     <router-outlet></router-outlet>
   </main>
 </div>
