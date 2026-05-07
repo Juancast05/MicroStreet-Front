@@ -1,21 +1,40 @@
-import { Injectable, inject } from '@angular/core';
+// src/app/services/auth.service.ts
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/api/auth';
 
-  // Paso 1: Enviar datos al Back para crear usuario y mandar correo
-  registrar(usuario: any): Observable<string> {
-    return this.http.post(`${this.apiUrl}/registro`, usuario, { responseType: 'text' });
+  // 1. Iniciamos el estado según lo que haya en el localStorage
+  private isLoggedInSubject = new BehaviorSubject<boolean>(localStorage.getItem('usuarioLogueado') === 'true');
+  
+  // 2. Este es el observable que escuchará el AppComponent
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
+  constructor(private http: HttpClient) {}
+
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials, { responseType: 'text' }).pipe(
+      tap(() => {
+        // 3. Si el login es exitoso, actualizamos el "emisor" de señal
+        localStorage.setItem('usuarioLogueado', 'true');
+        this.isLoggedInSubject.next(true);
+      })
+    );
   }
 
-  // Paso 2: Enviar el código que el usuario recibió por correo
-  verificarCodigo(email: string, codigo: string): Observable<string> {
-    return this.http.post(`${this.apiUrl}/verificar`, { email, codigo }, { responseType: 'text' });
+  // 4. Nuevo método para registrarse
+  registrar(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, usuario, { responseType: 'text' });
+  }
+
+  // 5. Método para avisar a todos que la sesión se cerró
+  logout() {
+    localStorage.removeItem('usuarioLogueado');
+    this.isLoggedInSubject.next(false);
   }
 }

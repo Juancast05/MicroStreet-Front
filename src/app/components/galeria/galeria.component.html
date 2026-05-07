@@ -1,0 +1,31 @@
+<header class="hero-section">
+  <h1>Próximos <span>Desafíos</span></h1>
+  <p>Canchas disponibles en Marinilla</p>
+</header>
+
+<div class="grid-container">
+  <div class="glass-card" *ngFor="let p of listaPartidos">
+    <div class="cupos-badge">{{ p.cuposDisponibles }} cupos</div>
+    
+    <div class="card-body">
+      <h3>{{ p.titulo }}</h3>
+      <span class="descripcion">{{ p.descripcion }}</span>
+      <p class="lugar">📍 {{ p.lugar }}</p>
+      
+      <div class="time-box">
+        {{ p.fechaHora | date:'EEEE, d MMMM' }}<br>
+        <small>{{ p.fechaHora | date:'hh:mm a' }}</small>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <button 
+        class="btn-join" 
+        [class.sin-cupos]="p.cuposDisponibles === 0" 
+        [disabled]="p.cuposDisponibles === 0" 
+        (click)="unirse(p.id)">
+        {{ p.cuposDisponibles > 0 ? 'Aceptar Desafío' : 'Sin Cupos' }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class FormularioPartidoComponent {
       next: () => {
         alert('¡Desafío creado con éxito!');
         // En lugar de emitir un evento, navegamos al inicio
-        this.router.navigate(['/']); 
+        this.router.navigate(['/galeria']); 
       },
       error: (err) => {
         console.error('Error al crear el partido:', err);
@@ -44,6 +44,6 @@ export class FormularioPartidoComponent {
 
   cancelar() {
     // Función para el botón de "Cancelar" o "Volver"
-    this.router.navigate(['/']);
+    this.router.navigate(['/galeria']);
   }
 }
