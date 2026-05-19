@@ -1,31 +1,34 @@
-<div class="main-container">
-  <header class="header">
-  </header>
-  <div class="login-box-container">
-    <form class="login-box" (ngSubmit)="onLogin()">
-      <h2>Inicia tu <span class="highlight">Sesión</span></h2>
+<div class="login-page">
+  <div class="glass-container">
+    <div class="login-box">
+      <h2>Inicia tu <span>Sesión</span></h2>
       <p class="subtitle">Ingresa para unirte a los desafíos en Marinilla</p>
-      
-      <div class="form-group">
-        <input 
-          type="email" 
-          name="email" 
-          [(ngModel)]="loginData.email" 
-          required 
-          placeholder="Correo electrónico">
-      </div>
 
-      <div class="form-group">
-        <input 
-          type="password" 
-          name="password" 
-          [(ngModel)]="loginData.password" 
-          required 
-          placeholder="Contraseña">
+      <form (ngSubmit)="onLogin()">
+        <div class="input-group">
+          <input 
+            type="email" 
+            name="email" 
+            [(ngModel)]="loginData.email" 
+            required 
+            placeholder="Correo electrónico">
+        </div>
+        
+        <div class="input-group">
+          <input 
+            type="password" 
+            name="password" 
+            [(ngModel)]="loginData.password" 
+            required 
+            placeholder="Contraseña">
+        </div>
+        
+        <button type="submit" class="btn-ingresar">INGRESAR</button>
+      </form>
+
+      <div class="auth-footer">
+        <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
       </div>
-      <button type="submit" class="btn-cyan">INGRESAR</button>
-    </form>
-     
+    </div>
   </div>
-  <p>No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
 </div>

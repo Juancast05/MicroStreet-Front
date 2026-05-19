@@ -3,16 +3,25 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { FormularioPartidoComponent } from './components/formulario-partido/formulario-partido.component';
 import { LoginComponent } from './components/login/login.component';
 import { GaleriaComponent } from './components/galeria/galeria.component'; 
+import { authGuard } from './guards/auth.guard'; // Arvhico del guardia de autenticación
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'crear-partido', component: FormularioPartidoComponent },
   
-  // 2. Creamos la ruta oficial para la galería
-  { path: 'galeria', component: GaleriaComponent }, 
+  // 2. Protegemos las rutas privadas con el authGuard
+  { 
+    path: 'crear-partido', 
+    component: FormularioPartidoComponent, 
+    canActivate: [authGuard] 
+  },
+  { 
+    path: 'galeria', 
+    component: GaleriaComponent, 
+    canActivate: [authGuard] 
+  }, 
 
-  // Al abrir la app, nos manda al login por defecto
+  // Redirecciones por defecto
   { path: '', redirectTo: 'login', pathMatch: 'full' }, 
   { path: '**', redirectTo: 'login' }
 ];

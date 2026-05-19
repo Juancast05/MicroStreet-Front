@@ -1,53 +1,32 @@
-<div class="auth-wrapper">
-  <div class="auth-card">
-    
-    @if (!codigoEnviado) {
+<div class="register-page">
+  <div class="glass-container">
+    <div class="register-box">
       <h2>Crea tu <span>Cuenta</span></h2>
-      <p>Regístrate para unirte a los desafíos en Marinilla</p>
-      
-      <!-- Usamos (ngSubmit) y prevenimos el refresco de página -->
-      <form (ngSubmit)="registrar()">
+      <p class="subtitle">Regístrate para unirte a los desafíos en Marinilla</p>
+
+      <form (ngSubmit)="onRegister()">
         <div class="input-group">
-          <input type="text" [(ngModel)]="usuario.nombre" name="nombre" placeholder="Nombre completo" required>
+          <input type="text" name="nombre" [(ngModel)]="registroData.nombre" required placeholder="Nombre completo">
         </div>
+
         <div class="input-group">
-          <input type="text" [(ngModel)]="usuario.documento" name="documento" placeholder="Cédula / Documento" required>
+          <input type="text" name="cedula" [(ngModel)]="registroData.cedula" required placeholder="Cédula / Documento">
         </div>
+        
         <div class="input-group">
-          <input type="email" [(ngModel)]="usuario.email" name="email" placeholder="Correo electrónico" required>
+          <input type="email" name="correo" [(ngModel)]="registroData.correo" required placeholder="Correo electrónico">
         </div>
+        
         <div class="input-group">
-          <input type="password" [(ngModel)]="usuario.password" name="password" placeholder="Contraseña segura" required>
+          <input type="password" name="password" [(ngModel)]="registroData.password" required placeholder="Contraseña segura">
         </div>
-  
-        <!-- BOTÓN CON BLOQUEO DINÁMICO -->
-        <button type="submit" class="btn-neon" [disabled]="enviandoPeticion">
-          <span *ngIf="!enviandoPeticion">Enviar Código al Correo</span>
-          <span *ngIf="enviandoPeticion">Enviando...</span>
-        </button>
+        
+        <button type="submit" class="btn-register">ENVIAR CÓDIGO AL CORREO</button>
       </form>
-      <p>Ya tienes cuenta?<a routerLink="/login"> Inicia sesión aquí</a></p>
 
-    } 
-    
-    @else {
-      <h2>Verifica tu <span>Email</span></h2>
-      <p>Hemos enviado un código de 6 dígitos a:<br><strong>{{ usuario.email }}</strong></p>
-      
-      <div class="verification-box">
-        <input type="text" [(ngModel)]="codigoIngresado" maxlength="6" placeholder="000000" class="input-code">
-        
-        <!-- BOTÓN DE VALIDACIÓN CON BLOQUEO -->
-        <button (click)="verificarCodigo()" class="btn-neon" [disabled]="enviandoPeticion">
-          <span *ngIf="!enviandoPeticion">Validar Cuenta</span>
-          <span *ngIf="enviandoPeticion">Validando...</span>
-        </button>
-        
-        <button (click)="codigoEnviado = false" class="btn-back" [disabled]="enviandoPeticion">
-          Corregir correo
-        </button>
+      <div class="auth-footer">
+        <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
       </div>
-    }
-
+    </div>
   </div>
 </div>

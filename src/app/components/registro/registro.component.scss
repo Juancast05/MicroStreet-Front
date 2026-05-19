@@ -1,99 +1,123 @@
-.auth-wrapper {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap');
+
+$cyan-neon: #00f2ff;
+$text-light: #ffffff;
+
+.register-page {
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  padding: 20px;
+  min-height: calc(100vh - 100px); 
+  padding: 40px 20px; // Más espacio arriba/abajo porque este form es más largo
+  box-sizing: border-box;
 }
 
-.auth-card {
+.glass-container {
+  position: relative;
+  z-index: 10;
+  padding: 1px; 
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.4), transparent);
+  border-radius: 32px;
   width: 100%;
-  width: 400px;
-  padding: 50px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  backdrop-filter: blur(20px);
+  max-width: 450px; // Un poco más ancho que el login para compensar la altura
+}
+
+.register-box {
+  background: rgba(15, 15, 15, 0.85); 
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 45px 40px;
+  border-radius: 30px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
 
   h2 {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
+    font-weight: 900;
     margin-bottom: 8px;
-    span { color: #00f2ff; text-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
+    letter-spacing: -1px;
+    span { color: $cyan-neon; }
   }
 
-  p {
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 30px;
-    font-size: 0.95rem;
-    strong { color: #fff; }
+  .subtitle {
+    opacity: 0.6;
+    font-size: 0.85rem;
+    margin-bottom: 35px;
+    line-height: 1.4;
   }
-}
 
-.input-group {
-  margin-bottom: 15px;
-  input {
+  .input-group {
+    margin-bottom: 25px;
+    position: relative;
+
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 0;
+      color: $text-light;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+
+      &:focus {
+        border-bottom-color: $cyan-neon;
+        box-shadow: 0 1px 0 $cyan-neon;
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  .btn-register {
     width: 100%;
-    padding: 14px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #fff;
-    outline: none;
-    transition: 0.3s;
+    background: $cyan-neon;
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 15px 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    &:focus {
-      border-color: #00f2ff;
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
+    }
+  }
+
+  .auth-footer {
+    margin-top: 20px;
+    p {
+      font-size: 0.9rem;
+      a {
+        color: $cyan-neon;
+        text-decoration: none;
+        font-weight: 700;
+        &:hover { text-shadow: 0 0 10px $cyan-neon; }
+      }
     }
   }
 }
 
-.input-code {
-  width: 100%;
-  background: none;
-  border: 2px dashed rgba(0, 242, 255, 0.3);
-  border-radius: 12px;
-  padding: 15px;
-  font-size: 2.5rem;
-  text-align: center;
-  color: #00f2ff;
-  letter-spacing: 8px;
-  margin-bottom: 20px;
-  outline: none;
-
-  &:focus {
-    border-style: solid;
-    border-color: #00f2ff;
+// Media Query para móviles
+@media (max-width: 480px) {
+  .register-page { padding: 20px 15px; }
+  .register-box {
+    padding: 30px 20px;
+    h2 { font-size: 1.8rem; }
+    .subtitle { margin-bottom: 25px; }
+    .input-group { margin-bottom: 20px; }
   }
-}
-
-.btn-neon {
-  width: 100%;
-  padding: 15px;
-  background: #00f2ff;
-  color: #060606;
-  border: none;
-  border-radius: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
-    transform: translateY(-2px);
-  }
-}
-
-.btn-back {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.4);
-  margin-top: 15px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  &:hover { color: #fff; }
 }

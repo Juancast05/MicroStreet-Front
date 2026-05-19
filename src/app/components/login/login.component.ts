@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  // Asegúrate de que los nombres coincidan con los de tu backend Java
+
   loginData = { email: '', password: '' }; 
 
   constructor(private authService: AuthService, private router: Router) {}

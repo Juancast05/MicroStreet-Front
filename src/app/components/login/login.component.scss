@@ -1,104 +1,183 @@
-// ... (Mantén tus variables de colores arriba)
-$bg-dark: #000000;
-$card-dark: #111111; 
-$input-bg: #1a1a1a;
-$cyan-neon: #00ffff;
+// Importamos la tipografía moderna
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap');
+
+// Variables
+$cyan-neon: #00f2ff;
 $text-light: #ffffff;
-$text-muted: #888888;
 
-.main-container {
-  min-height: 100vh;
-  background-color: $bg-dark;
-  font-family: 'Poppins', sans-serif;
-}
-
-.header {
-  display: flex;
-  justify-content: flex-start; // Alinea el logo a la izquierda
-  padding: 2rem 3rem; // Un poco más de espacio en los bordes
-  
-  .logo {
-    color: white;
-    font-size: 1.8rem; // Logo un poco más grande
-    font-weight: bold;
-    span { color: $cyan-neon; }
-  }
-}
-
-.login-box-container {
+.login-page {
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 100px); 
+  min-height: calc(100vh - 120px); 
+  padding: 20px; // Evita que la tarjeta toque los bordes del celular
+  box-sizing: border-box;
+}
 
-  .login-box {
-    background-color: $card-dark;
-    padding: 4rem 3rem; // AUMENTADO: Más espacio interior para que respire
-    border-radius: 15px;
+// Contenedor con borde brillante
+.glass-container {
+  position: relative;
+  z-index: 10;
+  padding: 1px; 
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.4), transparent);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 420px; // Ancho máximo en pc
+}
+
+// La tarjeta de cristal oscuro
+.login-box {
+  background: rgba(15, 15, 15, 0.85); 
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); // Compatibilidad para Safari/iPhone
+  padding: 50px 40px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+    span { color: $cyan-neon; }
+  }
+
+  .subtitle {
+    opacity: 0.6;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+
+  .input-group {
+    margin-bottom: 30px;
+    position: relative;
+
+    input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 0;
+      color: $text-light;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+
+      &:focus {
+        border-bottom-color: $cyan-neon;
+        box-shadow: 0 1px 0 $cyan-neon;
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+
+  .btn-ingresar {
     width: 100%;
-    max-width: 550px; // AUMENTADO: Hace la tarjeta mucho más ancha
-    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.05);
-    text-align: center;
+    background: $cyan-neon;
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 15px 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    .brand-text {
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .auth-footer {
+    margin-top: 25px;
+    position: relative;
+    z-index: 20;
+
+    p {
+      font-size: 0.95rem;
       color: $text-light;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
+      margin: 0;
 
-    h2 {
-      color: $text-light;
-      font-size: 2.5rem; // AUMENTADO: Título más grande
-      margin-bottom: 0.5rem;
-      .highlight { color: $cyan-neon; }
-    }
+      a {
+        color: $cyan-neon;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-block;
+        transition: 0.2s;
 
-    .subtitle {
-      color: $text-muted;
-      margin-bottom: 2.5rem;
-      font-size: 1rem; // AUMENTADO
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem; // Más separación entre inputs
-
-      input {
-        width: 100%;
-        padding: 1.2rem; // AUMENTADO: Inputs más altos
-        background-color: $input-bg;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        color: white;
-        font-size: 1.1rem; // AUMENTADO: Letra del input más grande
-        box-sizing: border-box;
-
-        &::placeholder { color: $text-muted; }
-
-        &:focus {
-          outline: none;
-          border-color: $cyan-neon;
+        &:hover {
+          text-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
+          color: $text-light;
         }
       }
     }
+  }
+}
 
-    .btn-cyan {
-      width: 100%;
-      padding: 1.2rem; // AUMENTADO: Botón más robusto
-      background-color: $cyan-neon;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1rem; // AUMENTADO
-      cursor: pointer;
-      text-transform: uppercase;
-      margin-top: 1rem;
-      transition: all 0.3s ease;
+/* ==========================================
+   MEDIA QUERIES: OPTIMIZACIÓN PARA CELULARES
+   ========================================== */
+@media (max-width: 480px) {
+  .login-page {
+    min-height: calc(100vh - 80px); // Ajusta mejor el espacio en pantallas cortas
+    padding: 15px;
+  }
 
-      &:hover {
-        background-color: #00cccc;
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  .login-box {
+    padding: 35px 20px; // Reducimos el espacio interno para ganar pantalla
+    border-radius: 24px;
+
+    h2 {
+      font-size: 1.9rem; // Texto un poco más pequeño para que no se parta feo
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      margin-bottom: 30px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+      
+      input {
+        padding: 10px 0;
+        font-size: 0.95rem; // Tamaño cómodo para teclados móviles
       }
     }
+
+    .btn-ingresar {
+      padding: 14px;
+      font-size: 0.95rem;
+      border-radius: 12px;
+    }
+
+    .auth-footer {
+      margin-top: 20px;
+      p {
+        font-size: 0.88rem;
+      }
+    }
+  }
+  
+  .glass-container {
+    border-radius: 26px;
   }
 }
