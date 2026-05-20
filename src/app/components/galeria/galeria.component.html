@@ -26,6 +26,13 @@
         (click)="unirse(p.id)">
         {{ p.cuposDisponibles > 0 ? 'Aceptar Desafío' : 'Sin Cupos' }}
       </button>
+
+      <button 
+        *ngIf="esElCreador(p)" 
+        class="btn-cancel-match" 
+        (click)="cancelarDesafio(p.id)">
+        CANCELAR PARTIDO
+      </button>
     </div>
   </div>
 </div>

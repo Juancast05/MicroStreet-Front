@@ -1,91 +1,186 @@
-.glass-card-form {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-  color: white;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap');
 
-  h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    span { color: #00f2ff; }
+$cyan-neon: #00f2ff;
+$text-light: #ffffff;
+
+.form-page {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px); 
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.glass-container {
+  position: relative;
+  z-index: 10;
+  padding: 1px; 
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.4), transparent);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 550px; // Un poco más ancho para que la fila doble respire bien
+}
+
+.form-box {
+  background: rgba(15, 15, 15, 0.85); 
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 45px 40px;
+  border-radius: 30px;
+  width: 100%;
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  text-align: center;
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+    span { color: $cyan-neon; }
   }
 
-  form {
+  .subtitle {
+    opacity: 0.6;
+    font-size: 0.85rem;
+    margin-bottom: 35px;
+    line-height: 1.4;
+  }
+
+  // Estructura para poner la fecha y los cupos lado a lado en PC
+  .row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    
+    .half-width {
+      flex: 1;
+    }
+  }
+
+  .input-group {
+    margin-bottom: 25px;
+    position: relative;
+    text-align: left; 
+
+    input, select, textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 0;
+      color: $text-light;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      font-family: inherit; // Fuerza al textarea a usar Montserrat
+
+      &:focus {
+        border-bottom-color: $cyan-neon;
+        box-shadow: 0 1px 0 $cyan-neon;
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    // El icono del calendario nativo suele ser negro, lo invertimos a blanco
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      cursor: pointer;
+    }
+
+    textarea {
+      resize: vertical; // Solo deja estirar hacia abajo
+      min-height: 80px;
+    }
+
+    select {
+      cursor: pointer;
+      option {
+        background-color: #111111;
+        color: $text-light;
+        padding: 10px;
+      }
+    }
+  }
+
+  // Botones (Rescaté tu degradado y estilos)
+  .button-group {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .input-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  input, textarea {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 12px 15px;
-    color: white;
-    outline: none;
-    transition: all 0.3s;
-
-    &:focus {
-      border-color: #00f2ff;
-      background: rgba(255, 255, 255, 0.12);
-    }
-  }
-
-  // AQUÍ ESTÁ TU BOTÓN CORREGIDO Y DENTRO DE LA CLASE PADRE
-  .btn-submit {
-    width: 100%;
-    background: linear-gradient(90deg, #00f2ff 0%, #0072ff 100%);
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    color: #000;
-    font-weight: 800;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-
-    &:hover:not(:disabled) {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
-    }
-
-    &:disabled {
-      background: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.3);
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
-
-  // BOTÓN CANCELAR (Para que no se vea gris feo)
-  .btn-cancel {
-    width: 100%;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 10px;
-    border-radius: 12px;
+    gap: 12px;
     margin-top: 15px;
-    cursor: pointer;
-    transition: all 0.3s;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: #00f2ff;
-      color: #00f2ff;
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(90deg, #00f2ff 0%, #0072ff 100%);
+      border: none;
+      padding: 16px;
+      border-radius: 14px;
+      color: #000;
+      font-weight: 800;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &:hover:not(:disabled) {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+      }
+
+      &:disabled {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.3);
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+
+    .btn-cancel {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: #00f2ff;
+        color: #00f2ff;
+      }
     }
   }
-} // <--- ESTA llave cierra todo el componente. No debe haber nada fuera.
+}
+
+/* ==========================================
+   MEDIA QUERIES PARA CELULARES
+   ========================================== */
+@media (max-width: 480px) {
+  .form-page { padding: 20px 15px; }
+  .form-box {
+    padding: 30px 20px;
+    
+    h2 { font-size: 1.8rem; }
+    .subtitle { margin-bottom: 25px; }
+
+    .row {
+      flex-direction: column; // Cambia de lado a lado a arriba y abajo
+      gap: 0; 
+    }
+
+    .input-group { margin-bottom: 20px; }
+  }
+}

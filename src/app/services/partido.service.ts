@@ -13,7 +13,7 @@ export class PartidoService {
   getPartidos(): Observable<Partido[]> {
     return this.http.get<Partido[]>(this.apiUrl);
   }
-
+  
   crearPartido(partido: Partido): Observable<Partido> {
     return this.http.post<Partido>(this.apiUrl, partido);
   }
@@ -22,4 +22,10 @@ export class PartidoService {
   unirseAPartido(id: number): Observable<Partido> {
     return this.http.put<Partido>(`${this.apiUrl}/${id}/unirse`, {});
   }
+   //Funcion para canclar un partido
+  cancelarPartido(idPartido: String | number) {
+  return this.http.delete(`${this.apiUrl}/${idPartido}`);
+ }
+
 }
+

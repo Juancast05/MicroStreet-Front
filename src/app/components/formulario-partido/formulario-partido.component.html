@@ -1,14 +1,42 @@
-<div class="glass-card-form">
-  <h3>Publicar Nuevo <span>Desafío</span></h3>
-  <form (ngSubmit)="guardar()" #partidoForm="ngForm">
-    <input type="text" name="titulo" [(ngModel)]="nuevoPartido.titulo" placeholder="Título" required>
-    <input type="text" name="lugar" [(ngModel)]="nuevoPartido.lugar" placeholder="Lugar" required>
-    <div class="row">
-      <input type="datetime-local" name="fecha" [(ngModel)]="nuevoPartido.fechaHora" required>
-      <input type="number" name="cupos" [(ngModel)]="nuevoPartido.cuposDisponibles"  required>
+<div class="form-page">
+  <div class="glass-container">
+    <div class="form-box">
+      <h2>Publicar Nuevo <span>Desafío</span></h2>
+      <p class="subtitle">Configura los detalles del próximo partido de MicroStreet</p>
+
+      <form (ngSubmit)="guardar()" #partidoForm="ngForm">
+        
+        <div class="input-group">
+          <input type="text" name="titulo" [(ngModel)]="nuevoPartido.titulo" placeholder="Título del partido (Ej: Reto Sabatino)" required>
+        </div>
+
+        <div class="input-group">
+          <select name="lugar" [(ngModel)]="nuevoPartido.lugar" required>
+            <option value="" disabled selected hidden>Selecciona la cancha</option>
+            <option *ngFor="let cancha of canchas" [value]="cancha">
+              {{ cancha }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="input-group half-width">
+            <input type="datetime-local" name="fecha" [(ngModel)]="nuevoPartido.fechaHora" required>
+          </div>
+          <div class="input-group half-width">
+            <input type="number" name="cupos" [(ngModel)]="nuevoPartido.cuposDisponibles" placeholder="Cupos disponibles" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <textarea name="desc" [(ngModel)]="nuevoPartido.descripcion" placeholder="Notas, reglas o detalles del partido..." rows="3"></textarea>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="btn-submit" [disabled]="!partidoForm.valid">PUBLICAR DESAFÍO</button>
+          <button type="button" (click)="cancelar()" class="btn-cancel">VOLVER</button>
+        </div>
+      </form>
     </div>
-    <textarea name="desc" [(ngModel)]="nuevoPartido.descripcion" placeholder="Notas..."></textarea>
-    <button type="submit" class="btn-submit" [disabled]="!partidoForm.valid">Publicar Desafío</button>
-    <button type="button" (click)="cancelar()" class="btn-cancel">Volver</button>
-  </form>
+  </div>
 </div>
